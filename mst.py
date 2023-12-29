@@ -30,7 +30,7 @@ def find_clusters_with_mst_networkx(data, k):
     return [list(cluster) for cluster in clusters]
 
 
-def plot_clusters(data, clusters):
+def plot_clusters(data, clusters, title, route):
     colors = ['r', 'g', 'b', 'c', 'm', 'y', 'k']
     plt.figure(figsize=(8, 6))
 
@@ -40,10 +40,19 @@ def plot_clusters(data, clusters):
 
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
-    plt.title('Iris Data Clusters (Sample of 20)')
+    plt.title(title)
     plt.legend()
     plt.show()
+    plt.savefig(route)
 
+def plot_data(data, title, route):
+    plt.figure(figsize=(6, 4))
+    plt.scatter(data[:, 0], data[:, 1])
+    plt.title(title)
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+    plt.show()
+    plt.savefig(route)
 
 
 if __name__ == "__main__":
@@ -52,13 +61,15 @@ if __name__ == "__main__":
     k_iris = 3  # Number of clusters
     iris_df = pd.read_csv('data/iris_data.txt', sep=' ', header=None)
     iris_data = iris_df.to_numpy()
+    plot_data(iris_data, "Iris Data","images/iris.png")
     iris_clusters = find_clusters_with_mst_networkx(iris_data, k_iris)
-    plot_clusters(iris_data[:, :2], iris_clusters)
+    plot_clusters(iris_data[:, :2], iris_clusters, "Iris Clusters", "images/iris_cl.png")
 
     # Execute with moon
     k_moon = 2  # Number of clusters
     moon_df = pd.read_csv('data/moon_data.txt', sep=' ', header=None)
     moon_data = moon_df.to_numpy()
+    plot_data(moon_data, "Moon Data","images/moon.png")
     moon_clusters = find_clusters_with_mst_networkx(moon_data, k_moon)
-    plot_clusters(moon_data[:, :2], moon_clusters)
+    plot_clusters(moon_data[:, :2], moon_clusters, "Moon Clusters", "images/moon_cl.png")
 
