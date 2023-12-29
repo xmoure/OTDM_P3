@@ -42,8 +42,9 @@ def plot_clusters(data, clusters, title, route):
     plt.ylabel('Feature 2')
     plt.title(title)
     plt.legend()
-    plt.show()
     plt.savefig(route)
+    plt.show()
+
 
 def plot_data(data, title, route):
     plt.figure(figsize=(6, 4))
@@ -51,8 +52,8 @@ def plot_data(data, title, route):
     plt.title(title)
     plt.xlabel('Feature 1')
     plt.ylabel('Feature 2')
-    plt.show()
     plt.savefig(route)
+    plt.show()
 
 
 if __name__ == "__main__":
