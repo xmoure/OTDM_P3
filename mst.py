@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
-
+import time
 
 
 def find_clusters_with_mst_networkx(data, k):
@@ -62,14 +62,20 @@ if __name__ == "__main__":
     iris_df = pd.read_csv('data/iris_data.txt', sep=' ', header=None)
     iris_data = iris_df.to_numpy()
     plot_data(iris_data, "Iris Data","images/iris.png")
+    start_time = time.time()
     iris_clusters = find_clusters_with_mst_networkx(iris_data, k_iris)
-    plot_clusters(iris_data[:, :2], iris_clusters, "Iris Clusters", "images/iris_cl.png")
+    end_time = time.time() - start_time
+    print(f"Iris clustering execution time: {end_time:.6f} seconds")
+    plot_clusters(iris_data[:, :2], iris_clusters, "Iris Clusters", "images/iris_cl_mst.png")
 
     # Execute with moon
     k_moon = 2  # Number of clusters
     moon_df = pd.read_csv('data/moon_data.txt', sep=' ', header=None)
     moon_data = moon_df.to_numpy()
     plot_data(moon_data, "Moon Data","images/moon.png")
+    start_time = time.time()
     moon_clusters = find_clusters_with_mst_networkx(moon_data, k_moon)
-    plot_clusters(moon_data[:, :2], moon_clusters, "Moon Clusters", "images/moon_cl.png")
+    end_time = time.time() - start_time
+    print(f"Moon clustering execution time: {end_time:.6f} seconds")
+    plot_clusters(moon_data[:, :2], moon_clusters, "Moon Clusters", "images/moon_cl_mst.png")
 
