@@ -80,3 +80,15 @@ if __name__ == "__main__":
     print(f"Moon clustering execution time: {end_time:.6f} seconds")
     plot_clusters(moon_data[:, :2], moon_clusters, "Moon Clusters", "images/moon_cl_mst.png")
 
+
+    # Execute with blob
+    k_blob = 3  # Number of clusters
+    blob_df = pd.read_csv('data/blob_data.txt', sep=' ', header=None)
+    blob_data = blob_df.to_numpy()
+    plot_data(blob_data, "Blob Data","images/blob.png")
+    start_time = time.time()
+    blob_clusters = find_clusters_with_mst_networkx(blob_data, k_blob)
+    end_time = time.time() - start_time
+    print(f"Blob clustering execution time: {end_time:.6f} seconds")
+    plot_clusters(blob_data[:, :2], blob_clusters, "Blob Clusters", "images/blob_cl_mst.png")
+

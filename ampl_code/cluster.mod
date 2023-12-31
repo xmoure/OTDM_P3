@@ -2,8 +2,6 @@
 param m;
 # Number of features per data point
 param n;
-# Number of clusters
-param k := 3;
 
 # Parameter to store the data points
 param A {1..m, 1..n};
@@ -16,7 +14,6 @@ param D {i in 1..m, j in 1..m} :=
 var x {1..m, 1..m} binary;
 
 # Objective: Minimize the sum of distances from points to their cluster medians
-#minimize TotalDistance: sum {i in 1..m, j in 1..m} (D[i,j] * x[i,j]);
 minimize TotalDistance: sum{i in 1..m}(sum{j in 1..m} D[i,j]*x[i,j]);
 
 # Each data point must belong to one and only one cluster
