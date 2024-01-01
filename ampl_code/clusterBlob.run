@@ -15,13 +15,13 @@ data ./data/blob.dat;
 
 # Solve the optimization problem
 solve;
+display _total_solve_elapsed_time;
 
 # Display the assignment of points to clusters
 print "### Assignment of points to clusters ###"; print "";
 display x;
 # Store the assignment of points to clusters
 display x > "./output/bolb_cluster_assignments.txt";
-display _total_solve_elapsed_time;
 
 for {i in 1..m} {
 for {j in 1..m} {

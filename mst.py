@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
 import time
+from scipy.spatial import distance
 
 
 def find_clusters_with_mst_networkx(data, k):
@@ -56,6 +57,20 @@ def plot_data(data, title, route):
     plt.show()
 
 
+def calculate_total_distance(clusters, data):
+    total_distance = 0
+    for cluster in clusters:
+        # Extract the points for this cluster based on the indices
+        cluster_points = data[cluster]
+        # Find the medoid - the point in the cluster with the smallest sum of distances to other points
+        medoid_index = np.argmin(np.sum(distance.cdist(cluster_points, cluster_points), axis=1))
+        medoid = cluster_points[medoid_index]
+        # Calculate the sum of distances from all points in the cluster to the medoid
+        total_distance += np.sum(np.linalg.norm(cluster_points - medoid, axis=1))
+    return total_distance
+
+
+
 if __name__ == "__main__":
 
     # Execute with Iris
@@ -91,4 +106,16 @@ if __name__ == "__main__":
     end_time = time.time() - start_time
     print(f"Blob clustering execution time: {end_time:.6f} seconds")
     plot_clusters(blob_data[:, :2], blob_clusters, "Blob Clusters", "images/blob_cl_mst.png")
+
+     # For Iris data
+    iris_total_distance = calculate_total_distance(iris_clusters, iris_data)
+    print(f"Total distance for Iris data: {iris_total_distance}")
+
+    # For Moon data
+    moon_total_distance = calculate_total_distance(moon_clusters, moon_data)
+    print(f"Total distance for Moon data: {moon_total_distance}")
+
+    # For Blob data
+    blob_total_distance = calculate_total_distance(blob_clusters, blob_data)
+    print(f"Total distance for Blob data: {blob_total_distance}")
 

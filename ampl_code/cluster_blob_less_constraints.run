@@ -16,6 +16,8 @@ data ./data/blob.dat;
 # Solve the optimization problem
 solve;
 
+display _total_solve_elapsed_time;
+
 # Display the assignment of points to clusters
 print "### Assignment of points to clusters ###"; print "";
 display x;
@@ -28,5 +30,4 @@ for {j in 1..m} {
 	 }
 	 printf '\n' >> ./output/output_blob_less_constraints.txt;
 	 }
-	 
-display _total_solve_elapsed_time;
+	
